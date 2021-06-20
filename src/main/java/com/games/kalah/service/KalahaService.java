@@ -25,7 +25,7 @@ public class KalahaService implements KalahaServiceApi {
     @Override
     public long createGame(int pitCount, int stones) throws KalahaException {
         validator.isValidStonesCount(stones);
-        KalahaGame game = KalahaFactory.createKalahaGame(pitCount, stones);
+        KalahaGame game = new KalahaGame(pitCount, stones);
         game = kalahaGameRepository.save(game);
         return game.getId();
     }
