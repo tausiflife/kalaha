@@ -20,7 +20,6 @@ public class MoveGameResponse {
     public MoveGameResponse(int id, String url, List<KalahaPit> pits) {
         this.id = String.valueOf(id);
         this.url = url;
-        this.status = new HashMap<>();
-        status = pits.stream().collect(Collectors.toMap(p -> String.valueOf(p.getId()), q -> String.valueOf(q.getStones())));
+        this.status = pits.stream().collect(Collectors.toMap(p -> String.valueOf(p.getPitId()), q -> String.valueOf(q.getStones())));
     }
 }

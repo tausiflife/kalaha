@@ -3,6 +3,10 @@ package com.games.kalah.domain;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import java.util.Optional;
+import java.util.stream.IntStream;
+
 import static org.junit.Assert.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -55,16 +59,40 @@ public class KalahaGameTest {
     @Test
     public void test_start_and_end_pit_index_of_players_in_10_pit_kalah() {
         KalahaGame game = new KalahaGame(10, 4);
-        assertEquals(4, game.getPlayer1LastPitIndex());
+        assertEquals(4, game.getPlayer1KalahaIndex());
         assertEquals(5, game.getPlayer2FirstPitIndex());
-        assertEquals(9, game.getPlayer2LastPitIndex());
+        assertEquals(9, game.getPlayer2KalahaIndex());
     }
 
     @Test
     public void test_start_and_end_pit_index_of_players_in_18_pit_kalah() {
         KalahaGame game = new KalahaGame(18, 4);
-        assertEquals(8, game.getPlayer1LastPitIndex());
+        assertEquals(8, game.getPlayer1KalahaIndex());
         assertEquals(9, game.getPlayer2FirstPitIndex());
-        assertEquals(17, game.getPlayer2LastPitIndex());
+        assertEquals(17, game.getPlayer2KalahaIndex());
+    }
+
+    @Test
+    public void all_players_should_have_stones_when_game_starts() {
+        KalahaGame game = new KalahaGame(14, 6);
+        Optional<Player> optional= game.getPlayerWithNoStones();
+        assertEquals(false, optional.isPresent());
+    }
+
+    @Test
+    public void should_return_player_1_when_no_stones_left_in_pits() {
+        KalahaGame game = new KalahaGame(14, 6);;
+        IntStream.rangeClosed(0, 5).forEach(p -> game.getPit(p).clear());
+        Optional<Player> optional1= game.getPlayerWithNoStones();
+        assertEquals(Player.PLAYER_1, optional1.get());
+    }
+
+    @Test
+    public void should_return_player_2_when_no_stones_left_in_pits() {
+        KalahaGame game = new KalahaGame(14, 6);;
+
+        IntStream.rangeClosed(7, 12).forEach(p -> game.getPit(p).clear());
+        Optional<Player> optional2= game.getPlayerWithNoStones();
+        assertEquals(Player.PLAYER_2, optional2.get());
     }
 }

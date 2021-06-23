@@ -1,6 +1,5 @@
 package com.games.kalah.repository;
 
-import com.games.kalah.domain.KalahaFactory;
 import com.games.kalah.domain.KalahaGame;
 import com.games.kalah.domain.Player;
 import com.games.kalah.domain.Status;
@@ -10,11 +9,12 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import static org.junit.Assert.*;
 
-@RunWith(SpringRunner.class)
+@RunWith(SpringJUnit4ClassRunner.class)
 @DataJpaTest
 public class KalahaRepositoryTest {
 
@@ -27,7 +27,7 @@ public class KalahaRepositoryTest {
 
     @Test
     public void should_store_a_kalaha_game() {
-        KalahaGame game = KalahaFactory.createKalahaGame(14, 6);
+        KalahaGame game = new KalahaGame(14, 6);
         game = kalahaGameRepository.save(game);
 
         //then
@@ -38,7 +38,7 @@ public class KalahaRepositoryTest {
     @Test
     public void should_find_kalaha_game_by_id() {
         //Given
-        KalahaGame game = KalahaFactory.createKalahaGame(14, 6);
+        KalahaGame game = new KalahaGame(14, 6);
         entityManager.persist(game);
 
         //when
@@ -54,7 +54,7 @@ public class KalahaRepositoryTest {
     @Test
     public void should_have_starting_player_1() {
         //Given
-        KalahaGame game = KalahaFactory.createKalahaGame(14, 6);
+        KalahaGame game = new KalahaGame(14, 6);
         entityManager.persist(game);
 
         //when
@@ -67,7 +67,7 @@ public class KalahaRepositoryTest {
     @Test
     public void should_have_starting_game_status_as_running() {
         //Given
-        KalahaGame game = KalahaFactory.createKalahaGame(14, 6);
+        KalahaGame game = new KalahaGame(14, 6);
         entityManager.persist(game);
 
         //when
@@ -81,7 +81,7 @@ public class KalahaRepositoryTest {
     @Test
     public void should_update_kalaha_game_pit_stones() {
         //Given
-        KalahaGame game = KalahaFactory.createKalahaGame(14, 6);
+        KalahaGame game = new KalahaGame(14, 6);
         entityManager.persist(game);
 
         //when

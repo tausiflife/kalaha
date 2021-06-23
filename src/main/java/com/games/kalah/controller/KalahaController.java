@@ -37,7 +37,8 @@ public class KalahaController {
      * Creates a a new kalah game.
      * @param body optional
      * @param request
-     * @return Json of {@link CreateGameResponse} with Http Status 201.
+     * @return Json response containing id of the game, uri.
+     * {@link CreateGameResponse} with Http Status 201.
      * @throws KalahaException if the pitStones or pitCount is not within the range
      */
     @PostMapping(value = KalahConstants.GAME_ENDPOINT, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -53,6 +54,16 @@ public class KalahaController {
         return new ResponseEntity<CreateGameResponse>(response, HttpStatus.CREATED);
     }
 
+    /**
+     * Makes a move in the game.
+     * @param body optional
+     * @param gameId game where the move has to happen
+     * @param pitId the pit id of the game from where the move will start
+     * @param request
+     * @return Json response containing id of the game, uri, each pit id and its stones.
+     * {@link MoveGameResponse} with Http Status 200.
+     * @throws KalahaException
+     */
     @PutMapping(value = KalahConstants.GAME_ENDPOINT + "/{gameId}/pits/{pitId}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<MoveGameResponse> makeMove(@RequestBody(required = false) String body,
                                            @PathVariable(name = "gameId") int gameId,

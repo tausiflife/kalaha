@@ -9,6 +9,7 @@ public enum ErrorCode {
     INVALID_STONES(103),
     INVALID_STONES_IN_PIT(104),
     GAME_OVER(105),
+    INVALID_PLAYER(105),
     INVALID_PIT_COUNT(105);
 
     private final int code;
