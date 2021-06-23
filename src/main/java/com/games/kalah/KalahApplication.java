@@ -5,17 +5,22 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
+import java.io.Serializable;
+import java.net.UnknownHostException;
+
 
 @SpringBootApplication
-public class KalahApplication {
+public class KalahApplication implements Serializable {
 
-	public static void main(String[] args) {
-		SpringApplication.run(KalahApplication.class, args);
-	}
+    public static void main(String[] args) throws UnknownHostException {
 
-	@Bean
-	public BoardFactory getBoardFactory() {
-		return new BoardFactory();
-	}
+        SpringApplication.run(KalahApplication.class, args);
+    }
+
+    @Bean
+    public BoardFactory getBoardFactory() {
+        return new BoardFactory();
+    }
 
 }
+

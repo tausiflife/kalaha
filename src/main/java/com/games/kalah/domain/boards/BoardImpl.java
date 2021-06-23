@@ -41,11 +41,12 @@ public class BoardImpl extends AbstractBoard {
             //check if last stone and current pit is empty, then calculate opposite pit, get its stone ,
             // add opposite pit stones with current pit stones and then add them to kalah
             if (isLastStone(tmpPitStones - 1) && isPitIdBetweenPlayerPits(currentPlayer, nextPit) && this.game.getPit(nextPit).isEmpty()) {
-                int oppositePit = calculateOppositePit(pitId);
+                int oppositePit = calculateOppositePit(nextPit);
                 this.game.getPit(playerKalah).addStones(1 + this.game.getPit(oppositePit).getStones());
                 this.game.getPit(nextPit).clear();
                 this.game.getPit(oppositePit).clear();
                 tmpPitStones--;
+                continue;
             }
             if (nextPit != restrictedPitId) {
                 tmpPitStones--;

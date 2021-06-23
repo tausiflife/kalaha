@@ -45,7 +45,7 @@ public class KalahaService implements KalahaServiceApi {
         KalahaGame game = optional.get();
         if (game.isGameOver())
             throw new KalahGameOverException(ErrorCode.GAME_OVER, "Game is already over");
-        int pitStonesCount = game.getPit(pitId).getStones();
+        int pitStonesCount = game.getPit(pitId - 1).getStones();
         if (pitStonesCount == 0) //Empty pit
             throw new KalahaInvalidPitIdException(ErrorCode.INVALID_PIT, "Selected pit is empty");
         Board board = boardFactory.createBoard(game);
@@ -86,7 +86,7 @@ public class KalahaService implements KalahaServiceApi {
     private void moveEveryThingToKalaha(Player player, KalahaGame game) {
         int start = player == Player.PLAYER_1 ? game.getPlayer2FirstPitIndex() : 0;
         int end = player == Player.PLAYER_1 ? game.getPlayer2KalahaIndex() : game.getPlayer1KalahaIndex();
-        IntStream.rangeClosed(start, end).forEach(p -> {
+        IntStream.range(start, end).forEach(p -> {
             game.getPit(end).addStones(game.getPit(p).getStones());
             game.getPit(p).clear();
         });
