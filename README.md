@@ -17,7 +17,7 @@ curl --header "Content-Type: application/json" --request POST http://localhost:8
 
 To make a move -
 ```
-curl --header "Content-Type: application/json" --request PUT http://<host>:<port>/games/{gameId}/pits/{pitId}
+curl --header "Content-Type: application/json" --request PUT http://localhost:8080/games/{gameId}/pits/{pitId}
 ```
 
 
